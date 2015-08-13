@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="da" lang="da" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="https://randersbib.dk/sites/default/files/favicon_0.ico" type="image/vnd.microsoft.icon" />
+    <meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+    <title>Giganternes fald | Randers Bibliotek</title>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_AhZb9--zcjVTVeW6CZQcNekhgR8j6fbzyYP00FdaCRw.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_dhSRr6SRv8xu1DBkSW0J0URJuTWoyt1WYYVb2szyDwc.css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_GuyIbetLgzaMNnEcw-FkKT44EGFqf9Fr6tIufES7Dq0.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_tHExWB9U4UOfjctG4LJol_wPH8EeBiZaYOQNK79JJLA.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_Dhfu3Sm-PuFGStOEx7rJQ8U-ttEWtT7qvE-ewkbV7QI.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_M9LTo46JROOmdAtIL0oDVSHsJ7R9Nti9__MUke97s-Y.css" media="all" />
+
+    <!--    <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_M8XLG8v8T3zJFpf4xpak2DRcEmdIJJ-uNhvE_cp_ZWY.js"></script>
+        <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_mrHNiivpPHxQ5_wiDE4k5cgCu0ITAJbAjd89qutUCmI.js"></script>
+        <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_BNiRnytJHmBpzXXas2WUhU1xnq2axFFNlEHSnVuZeJg.js"></script>
+        <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_MV_pUEHZNt_sf7XvzFY-_A3860yIIDnrqEJalXgTSiY.js"></script>
+        <script type="text/javascript">
+
+        </script>
+        <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_BVvC00V_oQLHhkrxSHyhfry1bsF6wUwcYL-Uq_Yg9H4.js"></script>
+        <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_9UzRAuWO6oVAGz9EKhYF1seqpcenjc5UvQUkVsE7ZaI.js"></script>-->
+    <script type="text/javascript" src="https://randersbib.dk//profiles/ding2/modules/contrib/jquery_update/replace/jquery/1.7/jquery.min.js?v=1.7.1"></script>
+
+  </head>
+  <body class="html not-front not-logged-in no-sidebars page-ting page-ting-object page-ting-object-870970-basis28455348 i18n-da">
+    <div id="page" class="ding2-site-template">
+      <header class="site-header">
+        <section class="topbar">
+          <div class="topbar-inner">
+            <div class="logo">
+              <a href="/" title="Hjem" rel="home">
+                <img src="https://randersbib.dk/profiles/ding2/themes/randersbib_theme/logo.png" alt="Hjem" />
+              </a>
+            </div>
+            <div class="site-name-wrapper">
+              <h1 class="site-name">
+                <a href="/" title="Hjem" rel="home">
+                  Randers Bibliotek
+                </a>
+              </h1>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="header-wrapper">
+          <div class="header-inner">
+            </header>
+
+            <div class="content-wrapper">
+              <div class="content-inner">
+                <div class="panel-pane pane-page-content">
+
+
+
+                  <div class="pane-content">
+                    <div id="ting-adhl-recommendation"> </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+          </div>
+          <script type="text/javascript">
+
+            (function($) {
+
+              $(document).ready(function () {
+                getAdhl ("23778114");
+              });
+
+
+
+            })(jQuery);
+
+            function getAdhl (objectid) {
+              alert ("2");
+              $.ajax({
+                type: "POST",
+                url: "https://staging.randersbib.dk/ting/adhl/ajax",
+                dataType: "json",
+                data: {
+                  "objectId" : objectid
+                },
+                success: function (data) {
+                  if (data != null) {
+
+                    $("#ting-adhl-recommendation").html(data);
+                  }
+                }
+              });
+            }
+          </script>
+
+          <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_P-9AQ-ZRN51cNQhn7_3fpkhAz5t6n7A_Hx89k7d59es.js"></script>
+          </body>
+          </html>

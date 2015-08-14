@@ -23,15 +23,29 @@ function ting_adhl_automat_menu() {
 
 
 function ting_adhl_automat_ajax() {
+  $startTime1 = explode(' ', microtime());
   $output = '';
   $object_ids_string = $_POST['objectId'];
   if ($object_ids_string) {
     $object_ids = split(',', $object_ids_string);
+    $startTime2 = explode(' ', microtime());
     $adhl_recommendations =  ting_adhl_automat_get_recommendations($object_ids);
+    $stopTime2 = explode(' ', microtime());
+    $time2 = floatval(($stopTime2[1]+$stopTime2[0]) - ($startTime2[1]+$startTime2[0]));
     if (is_array($adhl_recommendations) && !empty($adhl_recommendations)) {
+      $startTime = explode(' ', microtime());
       $covers = ting_adhl_check_covers($adhl_recommendations, 60);
+              $stopTime = explode(' ', microtime());
+        $time = floatval(($stopTime[1]+$stopTime[0]) - ($startTime[1]+$startTime[0]));
+        //file_put_contents("/home/quickstart/work/debug/debugadhlautomat7.txt", print_r(round($time, 3), TRUE), FILE_APPEND);
       if (!empty($covers))
-        $output = ting_adhl_render_cover($covers);
+        $stopTime1 = explode(' ', microtime());
+      $time1 = floatval(($stopTime1[1]+$stopTime1[0]) - ($startTime1[1]+$startTime1[0]));
+        $output .= '<div>All' . round($time1, 3) .'</div>';
+         $output .= '<div>Covers' . round($time, 3) .'</div>';
+         $output .= '<div>Adhl' . round($time2, 3) .'</div>';
+        $output .= ting_adhl_render_cover($covers);
+
         //ting_adhl_set_cache($covers, $object_id);
     }
   }

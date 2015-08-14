@@ -67,7 +67,7 @@
       (function($) {
 
         $(document).ready(function () {
-          getAdhl ("27955193,28641737,28170165");
+          getAdhl ("27955193,28641737");
         });
 
 
@@ -78,8 +78,8 @@
        // alert ("2");
         $.ajax({
           type: "POST",
-          url: "http://ddbcms2.dev/ting/adhlautomat/ajax",
-          //url: "https://staging.randersbib.dk/ting/adhlautomat/ajax",
+          //url: "http://ddbcms2.dev/ting/adhlautomat/ajax",
+          url: "https://staging.randersbib.dk/ting/adhlautomat/ajax",
           dataType: "json",
           data: {
             "objectId" : objectid

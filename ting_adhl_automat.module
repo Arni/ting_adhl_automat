@@ -32,8 +32,7 @@ function ting_adhl_automat_ajax() {
       $covers = ting_adhl_check_covers($adhl_recommendations, 60);
       if (!empty($covers))
         $output = ting_adhl_render_cover($covers);
-        ting_adhl_save_top_recommendation($covers);
-        ting_adhl_set_cache($covers, $object_id);
+        //ting_adhl_set_cache($covers, $object_id);
     }
   }
   return drupal_json_output($output);
@@ -57,11 +56,11 @@ function ting_adhl_automat_get_recommendations($object_ids) {
         $result_array[] = $adhl_recommendation;
       }
     }
-    file_put_contents("/home/quickstart/work/debug/debugadhlautomat.txt", print_r($adhl_recommendations, TRUE), FILE_APPEND);
+    //file_put_contents("/home/quickstart/work/debug/debugadhlautomat.txt", print_r($adhl_recommendations, TRUE), FILE_APPEND);
   }
-  file_put_contents("/home/quickstart/work/debug/debugadhlautomat2.txt", print_r($result_array, TRUE), FILE_APPEND);
+  //file_put_contents("/home/quickstart/work/debug/debugadhlautomat2.txt", print_r($result_array, TRUE), FILE_APPEND);
   uasort($result_array, 'ting_adhl_automat_sort');
-  file_put_contents("/home/quickstart/work/debug/debugadhlautomat4.txt", print_r($result_array, TRUE), FILE_APPEND);
+  //file_put_contents("/home/quickstart/work/debug/debugadhlautomat4.txt", print_r($result_array, TRUE), FILE_APPEND);
 
   return $result_array;
 }

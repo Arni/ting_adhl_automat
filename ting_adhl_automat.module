@@ -1,0 +1,91 @@
+<?php
+/**
+ * @file
+ * Enables the ADHL services to adhl automats.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ting_adhl_automat_menu() {
+  $items = array();
+
+  $items['ting/adhlautomat/ajax'] = array(
+    'title' => 'Get ADHL recommedation',
+    'page callback' => 'ting_adhl_automat_ajax',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+
+function ting_adhl_automat_ajax() {
+  $output = '';
+  $object_ids_string = $_POST['objectId'];
+  if ($object_ids_string) {
+    $object_ids = split(',', $object_ids_string);
+    $adhl_recommendations =  ting_adhl_automat_get_recommendations($object_ids);
+    if (is_array($adhl_recommendations) && !empty($adhl_recommendations)) {
+      $covers = ting_adhl_check_covers($adhl_recommendations, 60);
+      if (!empty($covers))
+        $output = ting_adhl_render_cover($covers);
+        ting_adhl_save_top_recommendation($covers);
+        ting_adhl_set_cache($covers, $object_id);
+    }
+  }
+  return drupal_json_output($output);
+}
+
+function ting_adhl_automat_get_recommendations($object_ids) {
+  $result_array = array();
+  foreach ($object_ids as $object_id) {
+    $adhl_recommendations = ting_adhl_recommendations($object_id, 30);
+    foreach ($adhl_recommendations as $rank => $adhl_recommendation) {
+      $adhl_recommendation->rank = 30 - $rank;
+      $match = false;
+      foreach ($result_array as $recommendation) {
+        if ($adhl_recommendation->localId == $recommendation->localId) {
+          $recommendation->rank += $adhl_recommendation->rank;
+          $match = true;
+          break;
+        }
+      }
+      if (!$match) {
+        $result_array[] = $adhl_recommendation;
+      }
+    }
+    file_put_contents("/home/quickstart/work/debug/debugadhlautomat.txt", print_r($adhl_recommendations, TRUE), FILE_APPEND);
+  }
+  file_put_contents("/home/quickstart/work/debug/debugadhlautomat2.txt", print_r($result_array, TRUE), FILE_APPEND);
+  uasort($result_array, 'ting_adhl_automat_sort');
+  file_put_contents("/home/quickstart/work/debug/debugadhlautomat4.txt", print_r($result_array, TRUE), FILE_APPEND);
+
+  return $result_array;
+}
+
+/**
+ * Helper function for sorting array according to rank.
+ *
+ * @param array $a
+ *  Array containing holding count.
+ * @param array $b
+ *  Array containing holding count.
+ * @return int
+ *  A int indicating if element is before or after.
+ */
+function ting_adhl_automat_sort($a, $b) {
+  if (!isset($a->rank )) {
+    return 1;
+  }
+  if (!isset($b->rank )) {
+    return -1;
+  }
+  if ($a->rank  == $b->rank ) {
+    return 0;
+  }
+  return ($a->rank  < $b->rank ) ? 1 : -1;
+}
+

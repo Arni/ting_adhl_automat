@@ -1,0 +1,8 @@
+name = Ting ADHL Automat
+description = Provides Ajax to get ADHL Rec
+package = Ding!
+core = 7.x
+dependencies[] = panels
+dependencies[] = ting
+dependencies[] = ting_new_materials
+dependencies[] = ting_adhl

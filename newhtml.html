@@ -4,9 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="https://randersbib.dk/sites/default/files/favicon_0.ico" type="image/vnd.microsoft.icon" />
     <meta name="Generator" content="Drupal 7 (http://drupal.org)" />
-    <title>Giganternes fald | Randers Bibliotek</title>
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Randers Bibliotek</title>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_AhZb9--zcjVTVeW6CZQcNekhgR8j6fbzyYP00FdaCRw.css" media="all" />
     <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_dhSRr6SRv8xu1DBkSW0J0URJuTWoyt1WYYVb2szyDwc.css" media="screen" />
     <link type="text/css" rel="stylesheet" href="https://randersbib.dk/sites/default/files/css/css_GuyIbetLgzaMNnEcw-FkKT44EGFqf9Fr6tIufES7Dq0.css" media="all" />
@@ -47,61 +47,53 @@
           </div>
         </section>
 
-        <section class="header-wrapper">
-          <div class="header-inner">
-            </header>
+      </header>
 
-            <div class="content-wrapper">
-              <div class="content-inner">
-                <div class="panel-pane pane-page-content">
+      <div class="content-wrapper">
+        <div class="content-inner">
+          <div class="panel-pane pane-page-content">
 
-
-
-                  <div class="pane-content">
-                    <div id="ting-adhl-recommendation"> </div>
-                  </div>
-
-
-                </div>
-              </div>
+            <div class="pane-content">
+              <div id="ting-adhl-recommendation"> </div>
             </div>
 
-
-
-
-
           </div>
-          <script type="text/javascript">
+        </div>
+      </div>
 
-            (function($) {
+    </div>
+    <script type="text/javascript">
 
-              $(document).ready(function () {
-                getAdhl ("23778114");
-              });
+      (function($) {
+
+        $(document).ready(function () {
+          getAdhl ("27955193,28641737,28170165");
+        });
 
 
 
-            })(jQuery);
+      })(jQuery);
 
-            function getAdhl (objectid) {
-              alert ("2");
-              $.ajax({
-                type: "POST",
-                url: "https://staging.randersbib.dk/ting/adhl/ajax",
-                dataType: "json",
-                data: {
-                  "objectId" : objectid
-                },
-                success: function (data) {
-                  if (data != null) {
+      function getAdhl (objectid) {
+       // alert ("2");
+        $.ajax({
+          type: "POST",
+          url: "http://ddbcms2.dev/ting/adhlautomat/ajax",
+          //url: "https://staging.randersbib.dk/ting/adhlautomat/ajax",
+          dataType: "json",
+          data: {
+            "objectId" : objectid
+          },
+          success: function (data) {
+            if (data != null) {
 
-                    $("#ting-adhl-recommendation").html(data);
-                  }
-                }
-              });
+              $("#ting-adhl-recommendation").html(data);
             }
-          </script>
+          }
+        });
+      }
+    </script>
 
-          <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_P-9AQ-ZRN51cNQhn7_3fpkhAz5t6n7A_Hx89k7d59es.js"></script>
-          </body>
-          </html>
+    <script type="text/javascript" src="https://randersbib.dk/sites/default/files/js/js_P-9AQ-ZRN51cNQhn7_3fpkhAz5t6n7A_Hx89k7d59es.js"></script>
+  </body>
+</html>

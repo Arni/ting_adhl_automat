@@ -41,8 +41,10 @@ function ting_adhl_automat_ajax() {
 function ting_adhl_automat_get_recommendations($object_ids) {
   $result_array = array();
   foreach ($object_ids as $object_id) {
-    $adhl_recommendations = ting_adhl_recommendations($object_id, 30);
+    //$adhl_recommendations = ting_adhl_recommendations($object_id, 30);
+    $adhl_recommendations = ting_adhl_automat_recommendations($object_id);
     foreach ($adhl_recommendations as $rank => $adhl_recommendation) {
+      $adhl_recommendation->localId = $adhl_recommendation->lid;
       $adhl_recommendation->rank = 30 - $rank;
       $match = false;
       foreach ($result_array as $recommendation) {
@@ -86,5 +88,24 @@ function ting_adhl_automat_sort($a, $b) {
     return 0;
   }
   return ($a->rank  < $b->rank ) ? 1 : -1;
+}
+
+function ting_adhl_automat_recommendations($faust) {
+  $url = 'http://bibdata.solsort.com/bib/related/' . $faust;
+  $json_adhl = ting_automat_get_by_curl($url);
+  $adhl = json_decode($json_adhl);
+  return $adhl;
+}
+
+//Developmentplatform has proxy
+function ting_automat_get_by_curl ($url) {
+$agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.8';
+$curl_handle=curl_init();
+//curl_setopt($curl_handle, CURLOPT_PROXY, '172.18.0.30:8080');
+curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl_handle, CURLOPT_USERAGENT, $agent);
+curl_setopt($curl_handle,CURLOPT_URL, $url);
+
+return curl_exec($curl_handle);
 }
 

@@ -6,3 +6,4 @@ dependencies[] = panels
 dependencies[] = ting
 dependencies[] = ting_new_materials
 dependencies[] = ting_adhl
+dependencies[] = alma_search

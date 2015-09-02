@@ -16,13 +16,32 @@ function ting_adhl_automat_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  $items['ting/adhlautomat/ajaxitem'] = array(
+    'title' => 'Get Material by itemid',
+    'page callback' => 'ting_adhl_automat_ajaxitem',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
 
+function ting_adhl_automat_ajaxitem() {
+  $itemId = $_POST['itemId'];
+  $data = alma_search_availability_holdings_item_id($itemId);
+  $data  = array_shift($data);
+  $output = array();
+  $output['objectid'] = $data["local_id"];
+  $output['title'] = '<div>' . $data["title"] . '</div>' ;
+//  file_put_contents("/home/quickstart/work/debug/debugadhlautomat1.txt", print_r($data, TRUE), FILE_APPEND);
+//  file_put_contents("/home/quickstart/work/debug/debugadhlautomat4.txt", print_r(array_shift($data), TRUE), FILE_APPEND);
+  return drupal_json_output($output);
+}
 
 
 function ting_adhl_automat_ajax() {
+  file_put_contents("/home/quickstart/work/debug/debugadhlautomat3.txt", print_r("ramt", TRUE), FILE_APPEND);
+  try {
   $startTime1 = explode(' ', microtime());
   $output = '';
   $object_ids_string = $_POST['objectId'];
@@ -49,6 +68,10 @@ function ting_adhl_automat_ajax() {
         //ting_adhl_set_cache($covers, $object_id);
     }
   }
+    } catch (Exception $e) {
+      file_put_contents("/home/quickstart/work/debug/debugadhlautomat2.txt", print_r($e->getTraceAsString(), TRUE), FILE_APPEND);
+    }
+
   return drupal_json_output($output);
 }
 
@@ -160,7 +183,7 @@ function ting_adhl_automat_check_covers($covers_ids, $number_of_results) {
 function ting_automat_get_by_curl ($url) {
 $agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.8';
 $curl_handle=curl_init();
-//curl_setopt($curl_handle, CURLOPT_PROXY, '172.18.0.30:8080');
+curl_setopt($curl_handle, CURLOPT_PROXY, '172.18.0.30:8080');
 curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl_handle, CURLOPT_USERAGENT, $agent);
 curl_setopt($curl_handle,CURLOPT_URL, $url);

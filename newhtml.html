@@ -52,7 +52,9 @@
       <div class="content-wrapper">
         <div class="content-inner">
           <div class="panel-pane pane-page-content">
-
+            <div class="scanned-materials">
+              <div id="ting-adhl-automat-scanned"> </div>
+            </div>
             <div class="pane-content">
               <div id="ting-adhl-recommendation"> </div>
             </div>
@@ -68,6 +70,8 @@
 
         $(document).ready(function () {
           getAdhl ("27979726");
+          getMaterials ("5059034230");
+          //alert (sessionStorage.items );
         });
 
 
@@ -75,11 +79,11 @@
       })(jQuery);
 
       function getAdhl (objectid) {
-       // alert ("2");
+        // alert ("2");
         $.ajax({
           type: "POST",
-          //url: "http://ddbcms2.dev/ting/adhlautomat/ajax",
-          url: "https://staging.randersbib.dk/ting/adhlautomat/ajax",
+          url: "http://ddbcms2.dev/ting/adhlautomat/ajax",
+          //url: "https://staging.randersbib.dk/ting/adhlautomat/ajax",
           dataType: "json",
           data: {
             "objectId" : objectid
@@ -91,6 +95,39 @@
             }
           }
         });
+      }
+
+      function getMaterials (itemid) {
+        $.ajax({
+          type: "POST",
+          url: "http://ddbcms2.dev/ting/adhlautomat/ajaxitem",
+          //url: "https://staging.randersbib.dk/ting/adhlautomat/ajaxitem",
+          dataType: "json",
+          data: {
+            "itemId" : itemid
+          },
+          success: function (data) {
+            if (data != null) {
+              alert(data.title);
+              addId (data.objectid);
+              $("#ting-adhl-automat-scanned").html(data.title);
+
+            }
+          }
+        });
+      }
+
+      function addId (objectId) {
+      alert ("ramt");
+      alert (objectId);
+        var objects = sessionStorage.objects;
+        if (objects != null) {
+          objects += "," +  objectId;
+          sessionStorage.objects = objects;
+        } else {
+          sessionStorage.objects = objectId;
+        }
+
       }
     </script>
 
